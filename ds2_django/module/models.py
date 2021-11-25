@@ -58,3 +58,5 @@ class Session(models.Model):
 
     class Meta:
         db_table = "Session"
+
+
