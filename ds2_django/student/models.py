@@ -1,5 +1,6 @@
 from django.db import models
 from module.models import Session, Module
+from django.contrib.auth.models import User
 
 
 # Create your models here.
@@ -11,6 +12,7 @@ class Student(models.Model):
         ("redoublant", "redoublant"),
         ("derogataire", "derogataire")
     )
+    user = models.OneToOneField(User , null=True ,  on_delete=models.CASCADE)
     lastname = models.CharField(max_length=150, null=True)
     firstname = models.CharField(max_length=150, null=True)
     birthday = models.DateTimeField(null=True)

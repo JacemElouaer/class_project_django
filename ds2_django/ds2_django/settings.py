@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'student.apps.StudentConfig',
     'module.apps.ModuleConfig',
-    'teacher.apps.TeacherConfig'
+    'teacher.apps.TeacherConfig',
+    'authentif'
 ]
 
 MIDDLEWARE = [
@@ -56,7 +57,7 @@ ROOT_URLCONF = 'ds2_django.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

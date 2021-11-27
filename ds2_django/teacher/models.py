@@ -7,7 +7,7 @@ from django.utils.text import slugify
 
 
 class Teacher(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User,  null=True ,  on_delete=models.CASCADE)
     firstname = models.CharField(max_length=150, null=True)
     lastname = models.CharField(max_length=150, null=True)
     photo = models.ImageField(upload_to='image/teacher', null=True)
