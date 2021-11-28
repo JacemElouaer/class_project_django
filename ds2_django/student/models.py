@@ -25,7 +25,7 @@ class Student(models.Model):
         db_table = "Student"
 
     def __str__(self):
-        return self.name
+        return self.firstname
 
     def full_name(self):
         return self.firstname + " " + self.lastname

@@ -13,4 +13,4 @@ class TeacherForm(ModelForm):
 class StudentForm(ModelForm):
     class Meta:
         model = Student
-        fields = ('firstname', 'lastname', 'birthday', 'email', 'state', 'group')
+        fields = ('firstname', 'lastname', 'email', 'state', 'group')

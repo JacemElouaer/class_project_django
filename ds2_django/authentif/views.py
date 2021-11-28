@@ -1,13 +1,15 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .forms import TeacherForm ,StudentForm
+
+from .decorators import unauthenticated_user
+from .forms import TeacherForm, StudentForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 
 
 # Create your views here.
 
-
+@unauthenticated_user
 def register_teacher(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -29,22 +31,34 @@ def register_teacher(request):
     return render(request, 'registration/registration_teacher.html', context)
 
 
+@unauthenticated_user
 def register_student(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         student_form = StudentForm(request.POST)
-        if not StudentForm.is_valid():
-            print({{StudentForm.errors}})
-        if form.is_valid() and StudentForm.is_valid():
-            user = form.save()
-            teacher_profile = StudentForm.save(commit=False)
-            teacher_profile.user = user
-            teacher_profile.save()
+        if not student_form.is_valid():
+            print(StudentForm.is_valid())
+        if form.is_valid() and student_form.is_valid():
+            studentuser = form.save()
+            student_form = student_form.save(commit=False)
+            print(studentuser)
+            student_form.user = studentuser
+            student_form.save()
             return HttpResponse("this is done")
     else:
         form = UserCreationForm()
         student_form = StudentForm()
 
-    context = {'form': form, 'teacher_form': student_form}
+    context = {'form': form, 'student_form': student_form}
 
     return render(request, 'registration/registration_student.html', context)
+
+
+def login_student(request):
+    context = {}
+    return render(request, 'registration/student_login.html')
+
+
+def login_student(request):
+    context = {}
+    return render(request, 'registration/teacher_login.html')
