@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'student.apps.StudentConfig',
     'module.apps.ModuleConfig',
     'teacher.apps.TeacherConfig',
-    'authentif'
+    'authentif',
+    'tailwind',
+    'theme',
 ]
 
 MIDDLEWARE = [
@@ -127,3 +129,7 @@ import os
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+TAILWIND_APP_NAME = "theme"
+INTERNAL_IPS = [
+    "127.0.0.1"
+]

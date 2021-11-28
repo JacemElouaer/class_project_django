@@ -56,9 +56,9 @@ def register_student(request):
 
 def login_student(request):
     context = {}
-    return render(request, 'registration/student_login.html')
+    return render(request, 'login/student_login.html')
 
 
-def login_student(request):
+def login_teacher(request):
     context = {}
-    return render(request, 'registration/teacher_login.html')
+    return render(request, 'login/teacher_login.html')
