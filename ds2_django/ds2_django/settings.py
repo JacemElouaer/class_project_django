@@ -40,8 +40,7 @@ INSTALLED_APPS = [
     'module.apps.ModuleConfig',
     'teacher.apps.TeacherConfig',
     'authentif',
-    'tailwind',
-    'theme',
+    'bootstrap5'
 ]
 
 MIDDLEWARE = [
@@ -120,6 +119,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
@@ -129,7 +130,6 @@ import os
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-TAILWIND_APP_NAME = "theme"
 INTERNAL_IPS = [
     "127.0.0.1"
 ]

@@ -1,0 +1,11 @@
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+
+<form method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    {{student_form.as_p}}
+    <input type="submit" value="Add student"/>
+</form>

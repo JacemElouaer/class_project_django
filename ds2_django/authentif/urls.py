@@ -4,9 +4,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 from .views import *
 urlpatterns = [
-    path('student/register/', register_student,  name="student_register"),
-    path('teacher/register/', register_teacher,  name="teacher_register"),
-    path('student/login/', login_student,  name="student_login"),
-    path('teacher/login/', login_teacher,  name="teacher_login"),
+    path('student_register', register_student,  name="student_register"),
+    path('teacher_register', register_teacher,  name="teacher_register"),
+    path('student_login', login_student,  name="student_login"),
+    path('teacher_login', login_teacher,  name="teacher_login"),
 
 ]

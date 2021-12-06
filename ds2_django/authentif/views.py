@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-
+from  django.contrib import messages
 from .decorators import unauthenticated_user
 from .forms import TeacherForm, StudentForm
 from django.contrib.auth.forms import UserCreationForm
@@ -9,7 +9,6 @@ from django.contrib.auth import authenticate, login
 
 # Create your views here.
 
-@unauthenticated_user
 def register_teacher(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -28,10 +27,9 @@ def register_teacher(request):
 
     context = {'form': form, 'teacher_form': teacher_form}
 
-    return render(request, 'registration/registration_teacher.html', context)
+    return render(request, 'registration/teacher_register.html' ,  context)
 
 
-@unauthenticated_user
 def register_student(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -51,14 +49,41 @@ def register_student(request):
 
     context = {'form': form, 'student_form': student_form}
 
-    return render(request, 'registration/registration_student.html', context)
+    return render(request, 'registration/student_register.html', context)
 
 
 def login_student(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username,  password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('/')
+        else:
+            messages.info(request, 'username OR password is incorrect !!' )
+
+
     context = {}
-    return render(request, 'login/student_login.html')
+    return render(request, 'login/student_login.html' ,  context)
 
 
 def login_teacher(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('/')
+        else:
+            messages.info(request, 'username OR password is incorrect !!' )
     context = {}
-    return render(request, 'login/teacher_login.html')
+    return render(request, 'login/teacher_login.html', context)
+
+
+def logout(request):
+    logout(request)
+    return redirect('/')
+
+
