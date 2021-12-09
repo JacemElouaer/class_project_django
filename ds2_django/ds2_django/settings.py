@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'module.apps.ModuleConfig',
     'teacher.apps.TeacherConfig',
     'authentif',
-    'bootstrap5'
+    'bootstrap5',
+    'choose'
 ]
 
 MIDDLEWARE = [

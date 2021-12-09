@@ -77,7 +77,7 @@ class HomeWork(models.Model):
     module = models.ForeignKey(Module, null=True, verbose_name="Homework module", on_delete=models.CASCADE)
     status = models.CharField(max_length=15, null=True, choices=Status)
     students = models.ManyToManyField(Student, verbose_name="Student homeworks")
-    group = models.ManyToManyField(StudentGroup, verbose_name="Student homeworks")
+    group = models.ManyToManyField(StudentGroup, verbose_name="Student homeworks" )
 
     class Meta:
         db_table = "Students_groups_homework"

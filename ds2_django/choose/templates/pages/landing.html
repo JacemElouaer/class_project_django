@@ -1,0 +1,51 @@
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Landing page</title>
+</head>
+<body>
+<div class="container col-lg-10">
+  <section class="container col-lg-7 col-md-9">
+    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+      <h1 class="display-4 fw-normal">Student tracking Application</h1>
+      <p class="fs-5 text-muted">You have the possibility to choose login as student or teacher.This application will help to perform better.Make it helpful.</p>
+    </div>
+</section>
+<main class="container col-lg-8 col-md-9 float-right">
+    <div class="row row-cols-lg-2 row-cols-md-1  row-cols-1 mb-2 text-center ">
+      <div class="col col-lg-5">
+        <div class="card mb-4 rounded-3 shadow-sm">
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">Login as Student</h1>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>What homework do you have</li>
+              <li>Submit homework</li>
+              <li>View note</li>
+            </ul>
+            <a href="{% url 'student_login' %}" type="button" class="w-100 btn btn-lg btn-outline-primary">Connect</a>
+          </div>
+        </div>
+      </div>
+      <div class="col col-lg-5">
+        <div class="card mb-4 rounded-3 shadow-sm border-primary">
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">Login as a Teacher</h1>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>possibility to track modules</li>
+              <li>Student management</li>
+              <li>Student management</li>
+            </ul>
+            <a href="{% url 'teacher_login' %}" type="button" class="w-100 btn btn-lg btn-primary">Connect</a>
+          </div>
+        </div>
+      </div>
+    </div>
+</main>
+</div>
+
+</body>
+</html>

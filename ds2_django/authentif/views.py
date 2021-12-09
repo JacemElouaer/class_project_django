@@ -4,11 +4,13 @@ from  django.contrib import messages
 from .decorators import unauthenticated_user
 from .forms import TeacherForm, StudentForm
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from .decorators import unauthenticated_user
 
 
 # Create your views here.
 
+@unauthenticated_user
 def register_teacher(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -29,7 +31,7 @@ def register_teacher(request):
 
     return render(request, 'registration/teacher_register.html' ,  context)
 
-
+@unauthenticated_user
 def register_student(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -51,7 +53,7 @@ def register_student(request):
 
     return render(request, 'registration/student_register.html', context)
 
-
+@unauthenticated_user
 def login_student(request):
     if request.method == "POST":
         username = request.POST.get('username')
@@ -67,7 +69,7 @@ def login_student(request):
     context = {}
     return render(request, 'login/student_login.html' ,  context)
 
-
+@unauthenticated_user
 def login_teacher(request):
     if request.method == "POST":
         username = request.POST.get('username')
@@ -82,8 +84,8 @@ def login_teacher(request):
     return render(request, 'login/teacher_login.html', context)
 
 
-def logout(request):
+def logout_user(request):
     logout(request)
-    return redirect('/')
+    return redirect('/home/landing')
 
 

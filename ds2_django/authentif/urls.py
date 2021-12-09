@@ -8,5 +8,6 @@ urlpatterns = [
     path('teacher_register', register_teacher,  name="teacher_register"),
     path('student_login', login_student,  name="student_login"),
     path('teacher_login', login_teacher,  name="teacher_login"),
+    path('logout', logout_user, name="logout")
 
 ]
