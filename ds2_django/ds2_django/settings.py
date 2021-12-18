@@ -37,11 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'student.apps.StudentConfig',
-    'module.apps.ModuleConfig',
-    'teacher.apps.TeacherConfig',
+    'module',
+    'teacher',
     'authentif',
     'bootstrap5',
-    'choose'
+    'choose',
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [
@@ -79,8 +80,14 @@ WSGI_APPLICATION = 'ds2_django.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'ds2',
+        'USER': 'jassem',
+        'PASSWORD': 'jrpie',
+        'HOST': 'localhost',
+        'POST': '',
+
     }
 }
 
@@ -117,10 +124,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
+import os
 
 STATIC_URL = '/static/'
-
-
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'assets'),
+)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -134,3 +143,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 INTERNAL_IPS = [
     "127.0.0.1"
 ]
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

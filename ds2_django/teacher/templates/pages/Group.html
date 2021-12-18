@@ -1,0 +1,206 @@
+{% extends "pages/home.html" %}
+{% block suptitle %}Group{% endblock %}
+{% block title %}Group{% endblock %}
+{% block content %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.min.js" integrity="sha512-tMabqarPtykgDtdtSqCL3uLVM0gS1ZkUAVhRFu1vSEFgvB73niFQWJuvviDyBGBH22Lcau4rHB5p2K2T0Xvr6Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<section class="content">
+      <div class="container-fluid">
+          <div class="row " >
+                    <div class="col-md-4  ">
+                      <!-- Widget: user widget style 2 -->
+                      <div class="card card-widget widget-user-2">
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+                        <div class="widget-user-header bg-warning">
+                          <!-- /.widget-user-image -->
+                          <h3 class="widget-user-username">Nadia Carmichael</h3>
+                          <h5 class="widget-user-desc">Teacher</h5>
+                        </div>
+                        <div class="card-body p-2">
+                          <h5 class="card-title">Card title</h5>
+                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                          <a href="{% url 'teacher_home' %}" class="btn btn-info">Teacher Home</a>
+                           <a class="btn btn-success "  href="{% url 'addgroup'  %}" >
+                              <i class="fas fa-folder">
+                              </i>
+                              Add new Group
+                        </a>
+                        </div>
+                        <div class="card-footer p-0">
+                          <ul class="nav flex-column">
+                            <li class="nav-item">
+                              <a href="#" class="nav-link">
+                                Groups <span class="float-right badge bg-primary">31</span>
+                              </a>
+                            </li>
+                            <li class="nav-item">
+                              <a href="#" class="nav-link">
+                                Homeworks <span class="float-right badge bg-info">5</span>
+                              </a>
+                            </li>
+                            <li class="nav-item">
+                              <a href="#" class="nav-link">
+                                Modules <span class="float-right badge bg-success">12</span>
+                              </a>
+                            </li>
+                            <li class="nav-item">
+                              <a href="#" class="nav-link">
+                                Students <span class="float-right badge bg-danger">842</span>
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <!-- /.widget-user -->
+                    </div>
+                     <div class="col-md-8">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Fixed Header Table</h3>
+
+                <div class="card-tools">
+                  <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-default">
+                        <i class="fas fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0" style="height: 360px;">
+                <table class="table table-head-fixed text-nowrap">
+                  <thead>
+                    <tr>
+                      <th style="width:5%">ID</th>
+                      <th style="width:25%">Name</th>
+                      <th style="width:25%">Group Email</th>
+                      <th style="width:25%">Level</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for relation in relations_G_T_M  %}
+                    <tr>
+                      <td>{{relation.group.id}}</td>
+                      <td>{{relation.group.name}}</td>
+                      <td>{{relation.group.mail_Group}}</td>
+                      <td><span class="tag tag-primary">{{relation.group.level}}</span></td>
+                      <td>
+                        <a class="btn btn-primary btn-sm" href="{% url 'UpdateGroup' relation.group.id %}">
+                              <i class="fas fa-folder">
+                              </i>
+                              Update
+                        </a>
+                          <a class="btn btn-primary btn-sm" href="{% url 'GroupDetail' relation.group.id %}">
+                              <i class="fas fa-folder">
+                              </i>
+                              View
+                        </a>
+                          <a class="btn btn-success btn-sm" href="{% url 'groupModule' relation.group.id %}">
+                              <i class="fas fa-folder">
+                              </i>
+                              Add Module
+                        </a>
+                          <a class="btn btn-danger btn-sm" href="{% url 'deletegroup' relation.group.id %}">
+                              <i class="fas fa-folder">
+                              </i>
+                               delete
+                        </a>
+
+                        <a class="btn btn-warning btn-sm" href="{% url 'addgrouphomework' relation.group.id  %}">
+                              <i class="fas fa-folder">
+                              </i>
+                              Add homework
+                        </a>
+
+                      </td>
+                    </tr>
+                   {% endfor  %}
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          </div>
+        <div class="row ">
+          <div class="col-md-7  ">
+                      <!-- Widget: user widget style 2 -->
+                      <canvas id="myChart" width="40%" height="18" style="background:#e3e3e3"></canvas>
+                      <!-- /.widget-user -->
+                    </div>
+          <div class="col-md-5 card " style>
+              <canvas id="myPie" width="30%" height="25" style="background:#e3e3e3"></canvas>
+
+              </div>
+        </div>
+      </div>
+</section>
+</section>
+
+
+ <script>
+const ctx = document.getElementById('myChart');
+const myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [{% for label in labels %} '{{label}}', {% endfor %} ],
+        datasets: [{
+            label: 'Rate of homework per Group',
+            data: [{% for d in data %} '{{d}}', {% endfor %} ],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+ <script>
+const ctxs = document.getElementById('myPie');
+const myPie = new Chart(ctxs, {
+    type: 'doughnut',
+    data: { labels: [
+    'Red',
+    'Blue',
+    'Yellow'
+  ],
+  datasets: [{
+    label: 'My First Dataset',
+    data: [300, 50, 100],
+    backgroundColor: [
+      'rgb(255, 99, 132)',
+      'rgb(54, 162, 235)',
+      'rgb(255, 205, 86)'
+    ],
+    hoverOffset: 4
+  }]
+    }
+});
+</script>
+  {% endblock %}

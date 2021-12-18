@@ -77,7 +77,7 @@ def login_teacher(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('/')
+            return redirect("/teacher/home")
         else:
             messages.info(request, 'username OR password is incorrect !!' )
     context = {}
@@ -86,6 +86,6 @@ def login_teacher(request):
 
 def logout_user(request):
     logout(request)
-    return redirect('/home/landing')
+    return redirect('/home')
 
 

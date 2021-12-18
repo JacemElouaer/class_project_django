@@ -1,0 +1,14 @@
+<div class="container col-lg-7 mt-5" style="background : #fff ">
+<form method="POST">
+                    {% csrf_token %}
+                    <label> Github url </label>
+                    {{form.lien_github}}</br>
+                   <label>Add File</label>
+                  {{form.file}}
+
+                    <div class="card-footer"  style="background : #fff " >
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <a   href="{% url 'studentHomework' %}" class="btn btn-warning">Go back</a>
+                </div>
+</form>
+</div>

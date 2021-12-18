@@ -11,8 +11,6 @@ class Module(models.Model):
     )
     name = models.CharField(max_length=150, unique=True, null=True)
     type = models.CharField(max_length=150, choices=Module_Type)
-    evaluation = models.OneToOneField("Evaluation", on_delete=models.CASCADE)
-
     def __str__(self):
         return self.name
 
@@ -21,7 +19,7 @@ class Module(models.Model):
 
 
 class Evaluation(models.Model):
-    note = models.FloatField(max_length=2)
+    note = models.FloatField(max_length=2 , null=True)
     comment = models.TextField(max_length=250, null=True)
 
     def __str__(self):
@@ -47,6 +45,7 @@ class Session(models.Model):
     start_date = models.DateTimeField(verbose_name="start date", null=True)
     end_date = models.DateTimeField(verbose_name="start date", null=True)
     class_number = models.IntegerField()
+    module =  models.ForeignKey(Module ,  null=True , blank =  True , on_delete=models.CASCADE)
     objectif = models.TextField(max_length=150)
     resume = models.TextField(max_length=150)
     status = models.CharField(max_length=100, choices=Session_Status)

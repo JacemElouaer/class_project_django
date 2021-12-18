@@ -1,9 +1,13 @@
 from django.db import models
-from module.models import Session, Module
+from module.models import Session, Module, Evaluation
 from django.contrib.auth.models import User
+import os
 
 
-# Create your models here.
+def file_path(instance, filename):
+    path = "documents/"
+    format = "uploaded-" + filename
+    return os.path.join(path, format)
 
 
 class Student(models.Model):
@@ -12,14 +16,13 @@ class Student(models.Model):
         ("redoublant", "redoublant"),
         ("derogataire", "derogataire")
     )
-    user = models.OneToOneField(User , null=True ,  on_delete=models.CASCADE)
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     lastname = models.CharField(max_length=150, null=True)
     firstname = models.CharField(max_length=150, null=True)
-    birthday = models.DateTimeField(null=True)
-    photo = models.ImageField(upload_to='image/student', null=True)
+    photo = models.ImageField(upload_to='image/student',blank=True, null=True)
     email = models.EmailField(max_length=150, null=True)
     state = models.CharField(max_length=150, null=True, choices=Std_state)
-    group = models.ForeignKey("StudentGroup", on_delete=models.CASCADE)
+    group = models.ForeignKey("StudentGroup", null=True,blank=True ,on_delete=models.CASCADE)
 
     class Meta:
         db_table = "Student"
@@ -44,7 +47,7 @@ class StudentGroup(models.Model):
         db_table = "StudentGroup"
 
     def __str__(self):
-        return self.name
+        return str(self.id)+ "/" + self.name
 
 
 class Absence(models.Model):
@@ -52,8 +55,8 @@ class Absence(models.Model):
         ("different type", "different type")
         , ("other type", "other type")
     )
-    student = models.OneToOneField(Student, null=True, on_delete=models.CASCADE, verbose_name="Absent Student")
-    session = models.OneToOneField(Session, null=True, on_delete=models.CASCADE, verbose_name="Absent Session")
+    student = models.ForeignKey(Student, null=True, blank=True, on_delete=models.CASCADE,verbose_name="Absent Student")
+    session = models.ForeignKey(Session, null=True, on_delete=models.CASCADE, verbose_name="Absent Session")
     date = models.DateTimeField(auto_now_add=True, verbose_name="Absent Date")
     justification = models.TextField(max_length=250, null=True, verbose_name="Absent justification")
     reason = models.CharField(max_length=15, null=True, verbose_name="Reason of absence", choices=Reason)
@@ -74,10 +77,16 @@ class HomeWork(models.Model):
     launch_date = models.DateTimeField(auto_now_add=True)
     deadline = models.DateTimeField(null=True, verbose_name="Homework deadline")
     description = models.TextField(max_length=250, null=True)
+    order = models.FileField(upload_to=file_path, null=True, blank=True)
+    file = models.FileField(upload_to=file_path, null=True, blank=True)
+    lien_github = models.CharField(max_length=255, blank=True, null=True)
     module = models.ForeignKey(Module, null=True, verbose_name="Homework module", on_delete=models.CASCADE)
     status = models.CharField(max_length=15, null=True, choices=Status)
-    students = models.ManyToManyField(Student, verbose_name="Student homeworks")
-    group = models.ManyToManyField(StudentGroup, verbose_name="Student homeworks" )
+    student = models.ForeignKey(Student, verbose_name="Student homeworks", null=True, blank=True,
+                                   on_delete=models.CASCADE)
+    group = models.ForeignKey("StudentGroup", verbose_name="Student homeworks group", null=True, blank=True,
+                                 on_delete=models.CASCADE)
+    evaluation = models.OneToOneField(Evaluation, null=True, blank=True, on_delete=models.CASCADE)
 
     class Meta:
         db_table = "Students_groups_homework"

@@ -9,3 +9,15 @@ class TeacherForm(ModelForm):
         fields = "__all__"
 
 
+
+
+class relation_H_T_M_Form(ModelForm):
+    class Meta:
+        model: relation_H_T_M
+        fields = "__all__"
+
+
+class relation_G_T_M_Form(ModelForm):
+    class Meta:
+        model: relation_G_T_M
+        fields = "__all__"

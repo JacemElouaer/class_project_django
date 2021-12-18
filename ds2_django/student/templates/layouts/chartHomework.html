@@ -1,0 +1,38 @@
+{% extends "homework.html" %}
+
+
+{% block chart %}
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.min.js" integrity="sha512-tMabqarPtykgDtdtSqCL3uLVM0gS1ZkUAVhRFu1vSEFgvB73niFQWJuvviDyBGBH22Lcau4rHB5p2K2T0Xvr6Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<div class="col-md-5 card " style>
+              <canvas id="myPie" width="30%" height="25" style="background:#e3e3e3"></canvas>
+
+              </div>
+
+ <script>
+const ctxs = document.getElementById('myPie');
+const myPie = new Chart(ctxs, {
+    type: 'doughnut',
+    data: { labels: [
+    'Red',
+    'Blue',
+    'Yellow'
+  ],
+  datasets: [{
+    label: 'My First Dataset',
+    data: [300, 50, 100],
+    backgroundColor: [
+      'rgb(255, 99, 132)',
+      'rgb(54, 162, 235)',
+      'rgb(255, 205, 86)'
+    ],
+    hoverOffset: 4
+  }]
+    }
+});
+</script>
+
+
+{% endblock %}

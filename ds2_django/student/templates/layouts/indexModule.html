@@ -1,0 +1,107 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.min.js" integrity="sha512-tMabqarPtykgDtdtSqCL3uLVM0gS1ZkUAVhRFu1vSEFgvB73niFQWJuvviDyBGBH22Lcau4rHB5p2K2T0Xvr6Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<div class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h1 class="m-0">Modules</h1>
+              </div><!-- /.col -->
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="{% url 'studenthome'  %}">Home</a></li>
+                  <li class="breadcrumb-item active">Module</li>
+                </ol>
+              </div><!-- /.col -->
+            </div><!-- /.row -->
+          </div><!-- /.container-fluid -->
+    </div>
+
+
+  <section class="content">
+<div class="row">
+          <!-- /.col -->
+          <div class="col-md-7" style="height:300px">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Module List</h3>
+                  <a type="button" class="btn-sm btn-warning" style="margin-left: 60px" href="{% url 'studentHomework' %}">
+                            Go to homework
+                        </a>
+
+                <div class="card-tools">
+                  <div class="input-group input-group-sm" style="width: 150px;">
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0" style="height: 250px;">
+
+                <table class="table table-head-fixed text-nowrap">
+
+                    <thead>
+                    <tr>
+                      <tr>
+                      <th style="width: 70px">Name</th>
+                      <th style="width: 80px">Type</th>
+                      <th style="width: 80px">Teacher</th>
+                        <th style="width: 80px">Teacher email</th>
+                    </tr>
+                    </tr>
+                  </thead>
+                  <tbody>
+                 {% for  relation in relations %}
+                  <tr>
+                      <td>{{relation.module.name}}</td>
+                     <td>{{relation.module.type}}</td>
+                     <td>{{relation.teacher.firstname}} {{relation.teacher.lastname}}</td>
+                      <td>{{relation.teacher.email_pro}}</td>
+                    </tr>
+                  {% endfor %}
+
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+    <div class="col-md-4 card " style>
+              <canvas id="myPie" width="30%" height="25" style="background:#e3e3e3"></canvas>
+
+      </div>
+          <!-- /.col -->
+        </div>
+
+
+<!--     list  of modules -->
+<!--     taux d absence par module  -->
+<!--     taux de homework par module -->
+<!--    -->
+
+  </section>
+
+
+
+
+
+
+
+ <script>
+const ctxs = document.getElementById('myPie');
+const myPie = new Chart(ctxs, {
+    type: 'doughnut',
+    data: { labels: ['present' , 'absence'],
+  datasets: [{
+    label: 'My First Dataset',
+    data: [{{n_present}},{{n_absence}}],
+    backgroundColor: [
+      'rgb(255, 99, 132)',
+      'rgb(54, 162, 235)',
+      'rgb(255, 205, 86)'
+    ],
+    hoverOffset: 4
+  }]
+    }
+});
+</script>
+

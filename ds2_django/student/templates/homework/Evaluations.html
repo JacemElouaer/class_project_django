@@ -1,0 +1,54 @@
+<div class="card col-lg-6">
+              <div class="card-header">
+                <h3 class="card-title">DataTable with default features</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                      <th>Homework Title</th>
+                    <th>Status</th>
+                    <th>Module</th>
+                    <th>Evaluation</th>
+                    <th>Actions</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {% for evaluation in homeworks_evaluation %}
+                  <tr>
+                    <td>{{evaluation.title}}</td>
+                    <td>{{evaluation.status}}</td>
+                    <td>{{evaluation.module.name}}</td>
+
+                    <td> {% if evaluation.evaluation.note > 15 %}
+                     <span class="badge badge-success">{{evaluation.evaluation.note}}</span>
+                      {% elif evaluation.evaluation.note >= 10 %}
+                      <span class="badge badge-warning">{{evaluation.evaluation.note}}</span>
+                      {% elif evaluation.evaluation.note < 10 %}
+                      <span class="badge badge-danger">{{evaluation.evaluation.note}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                      <a class="btn btn-primary btn-xs" href="#">
+                              <i class="fas fa-folder"></i>
+                              View
+                      </a>
+                    </td>
+                  </tr>
+                  {% endfor  %}
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                    <th>Homework Title</th>
+                    <th>Status</th>
+                    <th>Module</th>
+                    <th>Evaluation</th>
+                    <th>Actions</th>>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+
